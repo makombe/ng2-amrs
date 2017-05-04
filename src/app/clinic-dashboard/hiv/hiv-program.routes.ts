@@ -3,8 +3,11 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { Moh731ReportComponent } from './moh-731/moh-731-report.component';
 import {
-  HivSummaryIndicatorComponent
+    HivSummaryIndicatorComponent
 } from './hiv-summary-indicators/hiv-summary-indicator.component';
+import {
+    HivSummaryIndicatorsPatientListComponent
+} from '../../hiv-care-lib/hiv-summary-indicators/indicators-patientlist.component';
 
 const routes: Routes = [
     {
@@ -16,8 +19,17 @@ const routes: Routes = [
         component: Moh731ReportComponent // replace with landing page for module
     },
     {
-      path: 'hiv-summary-indicator-report',
-      component: HivSummaryIndicatorComponent // replace with landing page for module
+        path: 'hiv-summary-indicator-report',
+        children: [
+            {
+                path: '',
+                component: HivSummaryIndicatorComponent
+            },
+            {
+                path: 'patient-list/hiv-summary-indicator-report/:indicator/:period',
+                component: HivSummaryIndicatorsPatientListComponent,
+            }
+        ]
     }
 ];
 

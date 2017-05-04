@@ -29,8 +29,10 @@ const expectedHivSummaryIndicatorsResults = {
 };
 
 const reportParams = {
+    startIndex: undefined,
     startDate: '2017-03-01',
     locationUuids: '08fec056-1352-11df-a1f1-0026b9348838',
+    limit: undefined,
     endDate: '2017-04-27',
     gender: 'M,F',
     indicators: 'on_arvs',
@@ -103,6 +105,7 @@ describe('HivSummaryIndicatorsResourceService Tests', () => {
             (s: HivSummaryIndicatorsResourceService, backend: MockBackend) => {
                 let urlParams = s.getUrlRequestParams(reportParams);
                 let params = urlParams.toString();
+                expect(params).toContain('startIndex=0');
                 expect(params).toContain('locationUuids=08fec056-1352-11df-a1f1-0026b9348838');
                 expect(params).toContain('endDate=2017-04-27');
                 expect(params).toContain('gender=M,F');
@@ -110,6 +113,7 @@ describe('HivSummaryIndicatorsResourceService Tests', () => {
                 expect(params).toContain('indicators=on_arvs');
                 expect(params).toContain('startAge=0');
                 expect(params).toContain('endAge=110');
+                expect(params).toContain('limit=300');
 
             }
         )

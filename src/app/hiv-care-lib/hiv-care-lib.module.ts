@@ -14,13 +14,17 @@ import { MOHReportComponent } from './moh-731-report/moh-731-report-pdf-view.com
 import { MOHReportService } from './moh-731-report/moh-731-report-pdf-view.service';
 import { LocationResourceService } from '../openmrs-api/location-resource.service';
 import {
-  HivSummaryIndicatorBaseComponent
+    HivSummaryIndicatorBaseComponent
 } from './hiv-summary-indicators/hiv-summary-report-base.component';
 import {
-  ReportFilters
+    ReportFilters
 } from './report-filters/report-filters.component';
 import { SelectModule } from 'angular2-select';
 import { HivSummaryTabularComponent } from './hiv-summary-indicators/hiv-summary-tabular.component';
+import { DataListsModule } from '../data-lists/data-lists.module';
+import {
+    HivSummaryIndicatorsPatientListComponent
+} from './hiv-summary-indicators/indicators-patientlist.component';
 @NgModule({
     imports: [
         AgGridModule.withComponents([]),
@@ -30,6 +34,7 @@ import { HivSummaryTabularComponent } from './hiv-summary-indicators/hiv-summary
         TabViewModule,
         NgamrsSharedModule,
         SelectModule,
+        DataListsModule
     ],
     exports: [
         Moh731TabularComponent,
@@ -40,7 +45,8 @@ import { HivSummaryTabularComponent } from './hiv-summary-indicators/hiv-summary
         NgamrsSharedModule,
         MOHReportComponent,
         ReportFilters,
-        HivSummaryTabularComponent
+        HivSummaryTabularComponent,
+        HivSummaryIndicatorsPatientListComponent
     ],
     declarations: [
         Moh731TabularComponent,
@@ -49,7 +55,8 @@ import { HivSummaryTabularComponent } from './hiv-summary-indicators/hiv-summary
         MOHReportComponent,
         HivSummaryIndicatorBaseComponent,
         ReportFilters,
-        HivSummaryTabularComponent
+        HivSummaryTabularComponent,
+        HivSummaryIndicatorsPatientListComponent
     ],
     providers: [MOHReportService, LocationResourceService],
 })
