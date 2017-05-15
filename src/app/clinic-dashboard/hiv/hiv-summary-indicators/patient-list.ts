@@ -8,39 +8,37 @@ import {
 import {
   HivSummaryIndicatorsResourceService
 } from '../../../etl-api/hiv-summary-indicators-resource.service';
+import {
+  HivSummaryIndicatorsPatientListComponent
+} from '../../../hiv-care-lib/hiv-summary-indicators/indicators-patientlist.component';
 
 @Component({
-  selector: 'hiv-summary-indicator-report',
-  templateUrl: '../../../hiv-care-lib/hiv-summary-indicators/hiv-summary-report-base.component.html'
+  selector: 'patient-hiv-list',
+  templateUrl: '../../../hiv-care-lib/hiv-summary-indicators/indicators-patientlist.component.html'
 })
 
-export class HivSummaryIndicatorComponent extends HivSummaryIndicatorBaseComponent
-              implements OnInit {
+export class PatientListHIVComponent extends HivSummaryIndicatorsPatientListComponent
+implements OnInit {
   public data = [];
   public sectionsDef = [];
 
   constructor(public hivSummaryIndicatorsResourceService: HivSummaryIndicatorsResourceService,
-              private route: ActivatedRoute, private location: Location,
-              private router: Router) {
-    super(hivSummaryIndicatorsResourceService);
+              public route: ActivatedRoute, private location: Location,
+              public router: Router) {
+     super(route, router, hivSummaryIndicatorsResourceService);
 
   }
 
   ngOnInit() {
 
-    this.route.parent.parent.parent.params.subscribe((params: any) => {
-
-      this.locationUuids = [];
-
-      if (params.location_uuid)
-
-        this.locationUuids.push(params.location_uuid);
-
-    });
+  /*  this.route.parent.parent.url.subscribe((url) => {
+     // this.locationUuids = [];
+     // this.locationUuids.push(url[0].path);
+    });*/
     this.route.queryParams.subscribe((params) => {
       console.log('params', params);
       if (params['indicators']) {
-        this.selectedIndicator = params['indicators'].split(',');
+       // this.selectedIndicator = params['indicators'].split(',');
       }
     });
     this.loadReportParamsFromUrl();
@@ -48,7 +46,7 @@ export class HivSummaryIndicatorComponent extends HivSummaryIndicatorBaseCompone
 
   public generateReport() {
     this.storeReportParamsInUrl();
-    super.generateReport();
+   // super.generateReport();
   }
 
   public loadReportParamsFromUrl() {
@@ -64,10 +62,10 @@ export class HivSummaryIndicatorComponent extends HivSummaryIndicatorBaseCompone
       this.endDate = new Date(path.queryParams['endDate']);
     }
     if (path.queryParams['indicators']) {
-      this.indicators = path.queryParams['indicators'];
+    //  this.indicators = path.queryParams['indicators'];
     }
     if (path.queryParams['gender']) {
-      this.gender = (path.queryParams['gender'] as any);
+     // this.gender = (path.queryParams['gender'] as any);
     }
     if (path.queryParams['startAge']) {
       this.startAge = (path.queryParams['startAge'] as any);
@@ -76,7 +74,7 @@ export class HivSummaryIndicatorComponent extends HivSummaryIndicatorBaseCompone
       this.endAge = (path.queryParams['endAge'] as any);
     }
     if (path.queryParams['view']) {
-      this.currentView = path.queryParams['view'];
+     // this.currentView = path.queryParams['view'];
     }
     if (pathHasHistoricalValues) {
       this.generateReport();
@@ -85,7 +83,7 @@ export class HivSummaryIndicatorComponent extends HivSummaryIndicatorBaseCompone
 
   public storeReportParamsInUrl() {
     let path = this.router.parseUrl(this.location.path());
-    path.queryParams = {
+    /*path.queryParams = {
       'endDate': this.endDate.toUTCString(),
       'startDate': this.startDate.toUTCString(),
       'indicators': this.indicators,
@@ -93,9 +91,10 @@ export class HivSummaryIndicatorComponent extends HivSummaryIndicatorBaseCompone
       'startAge': (this.startAge as any),
       'endAge': (this.endAge as any),
       'view': this.currentView
-    };
+    };*/
 
     this.location.replaceState(path.toString());
   }
 
 }
+

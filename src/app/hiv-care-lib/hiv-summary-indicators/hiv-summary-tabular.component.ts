@@ -86,7 +86,8 @@ export class HivSummaryTabularComponent implements OnInit {
   goToPatientList(data) {
     this.startDate = moment(this._dates.startDate);
     this.endDate = moment(this._dates.endDate);
-    this.router.navigate(['/patient-list', data.colDef.field,
-      this.startDate.format('DD/MM/YYYY') + '|' + this.endDate.format('DD/MM/YYYY')]);
+    this.router.navigate(['../patient-list', data.colDef.field,
+      this.startDate.format('DD/MM/YYYY') + '|' + this.endDate.format('DD/MM/YYYY')],
+      {relativeTo: this.route });
   }
 }

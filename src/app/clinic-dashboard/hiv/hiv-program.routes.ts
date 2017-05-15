@@ -8,6 +8,7 @@ import {
 import {
     HivSummaryIndicatorsPatientListComponent
 } from '../../hiv-care-lib/hiv-summary-indicators/indicators-patientlist.component';
+import { PatientListHIVComponent } from './hiv-summary-indicators/patient-list';
 
 const routes: Routes = [
     {
@@ -20,22 +21,22 @@ const routes: Routes = [
     },
     {
         path: 'hiv-summary-indicator-report',
-        component: HivSummaryIndicatorComponent
-        // children: [
-        //     {
-        //         path: '',
-        //         component: HivSummaryIndicatorComponent
-        //     },
-        //     {
-        //         path: 'patient-list/:indicator/:period',
-        //         component: HivSummaryIndicatorsPatientListComponent,
-        //     }
-        // ]
+      //  component: HivSummaryIndicatorComponent
+        children: [
+            {
+                path: '',
+                component: HivSummaryIndicatorComponent
+            },
+            {
+                path: 'patient-list/:indicator/:period',
+                component: HivSummaryIndicatorsPatientListComponent,
+            }
+        ]
     },
-    {
+    /*{
         path: 'patient-list/:indicator/:period',
-        component: HivSummaryIndicatorsPatientListComponent,
-    }
+        component: PatientListHIVComponent,
+    }*/
 ];
 
 export const clinicDashboardHivRouting: ModuleWithProviders =
