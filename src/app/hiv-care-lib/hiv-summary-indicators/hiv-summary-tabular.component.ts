@@ -4,6 +4,7 @@ import * as _ from 'lodash';
 import { AgGridNg2 } from 'ag-grid-angular';
 import { Router, ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
+import { Subscription } from 'rxjs/Rx';
 @Component({
   selector: 'hiv-summary-tabular',
   templateUrl: 'hiv-summary-tabular.component.html',
@@ -11,6 +12,9 @@ import * as moment from 'moment';
 })
 
 export class HivSummaryTabularComponent implements OnInit {
+  routeParamsSubscription: Subscription;
+  startDate: any;
+  endDate: any;
   public gridOptions: any = {
     columnDefs: []
   };
@@ -31,6 +35,14 @@ export class HivSummaryTabularComponent implements OnInit {
     this.setColumns(v);
 
   }
+  private _dates: any;
+  public get dates(): any {
+    return this._dates;
+  }
+  @Input('dates')
+  public set dates(v: any) {
+    this._dates = v;
+  }
 
   constructor(private router: Router,
     private route: ActivatedRoute) { }
@@ -46,7 +58,7 @@ export class HivSummaryTabularComponent implements OnInit {
     if (this.data[0]) {
       _.each(Object.keys(this.data[0]), (selected) => {
         _.each(sectionsData, (data) => {
-          if ( selected === data.name) {
+          if (selected === data.name) {
             defs.push({
               headerName: this.titleCase(data.label),
               field: data.name
@@ -67,33 +79,14 @@ export class HivSummaryTabularComponent implements OnInit {
   }
 
   onCellClicked(event) {
-    // this.goToPatientList(event);
-    console.log('cell clicked event ----->', event);
+    this.goToPatientList(event);
+    console.log('event----->', event);
   }
 
   goToPatientList(data) {
-    // let dateRange = this.clinicalSummaryVisualizationService.getMonthDateRange(
-    //   col.reporting_month.split('/')[1],
-    //   col.reporting_month.split('/')[0] - 1
-    // );
-
-    let dateRange = this.getMonthDateRange(
-      data.reporting_month.split('/')[1],
-      data.reporting_month.split('/')[0] - 1);
-
-
-    this.router.navigate(['./patient-list', data.indicator,
-      dateRange.startDate.format('DD/MM/YYYY') + '|' + dateRange.endDate.format('DD/MM/YYYY')]
-      , { relativeTo: this.route });
+    this.startDate = moment(this._dates.startDate);
+    this.endDate = moment(this._dates.endDate);
+    this.router.navigate(['/patient-list', data.colDef.field,
+      this.startDate.format('DD/MM/YYYY') + '|' + this.endDate.format('DD/MM/YYYY')]);
   }
-
-  getMonthDateRange(year: number, month: number): any {
-    let startDate = moment([year, month]);
-    let endDate = moment(startDate).endOf('month');
-    return {
-      startDate: startDate,
-      endDate: endDate
-    };
-  }
-
 }

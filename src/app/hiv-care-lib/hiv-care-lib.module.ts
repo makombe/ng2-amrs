@@ -22,9 +22,9 @@ import {
 import { SelectModule } from 'angular2-select';
 import { HivSummaryTabularComponent } from './hiv-summary-indicators/hiv-summary-tabular.component';
 import { DataListsModule } from '../data-lists/data-lists.module';
-import {
-    HivSummaryIndicatorsPatientListComponent
-} from './hiv-summary-indicators/indicators-patientlist.component';
+// import {
+//     HivSummaryIndicatorsPatientListComponent
+// } from './hiv-summary-indicators/indicators-patientlist.component';
 @NgModule({
     imports: [
         AgGridModule.withComponents([]),
@@ -46,7 +46,7 @@ import {
         MOHReportComponent,
         ReportFilters,
         HivSummaryTabularComponent,
-        HivSummaryIndicatorsPatientListComponent
+        // HivSummaryIndicatorsPatientListComponent
     ],
     declarations: [
         Moh731TabularComponent,
@@ -56,7 +56,7 @@ import {
         HivSummaryIndicatorBaseComponent,
         ReportFilters,
         HivSummaryTabularComponent,
-        HivSummaryIndicatorsPatientListComponent
+        // HivSummaryIndicatorsPatientListComponent
     ],
     providers: [MOHReportService, LocationResourceService],
 })

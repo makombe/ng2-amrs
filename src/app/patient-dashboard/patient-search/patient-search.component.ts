@@ -5,6 +5,7 @@ import { PatientSearchService } from './patient-search.service';
 import { Patient } from '../../models/patient.model';
 import { Subscription } from 'rxjs';
 import { AppFeatureAnalytics } from '../../shared/app-analytics/app-feature-analytics.service';
+import { HivSummaryIndicatorsResourceService } from '../../etl-api/hiv-summary-indicators-resource.service';
 @Component({
   selector: 'app-patient-search',
   templateUrl: './patient-search.component.html',
@@ -23,15 +24,36 @@ export class PatientSearchComponent implements OnInit, OnDestroy {
   public errorMessage: string;
 
   constructor(private patientSearchService: PatientSearchService,
-              private route: ActivatedRoute,
-              private appFeatureAnalytics: AppFeatureAnalytics,
-              private router: Router) {
+    private route: ActivatedRoute,
+    private appFeatureAnalytics: AppFeatureAnalytics,
+    private router: Router,
+    private resourceService: HivSummaryIndicatorsResourceService) {
   }
 
 
   ngOnInit() {
+    console.log('iko hapa');
+    const reportParams = {
+      startDate: '2017-03-01',
+      locationUuids: '08fec056-1352-11df-a1f1-0026b9348838',
+      endDate: '2017-04-27',
+      gender: 'M,F',
+      indicator: 'on_arvs',
+      startAge: 0,
+      endAge: 110,
+      startIndex: undefined,
+      limit: undefined
+
+    };
+    this.resourceService.getHivSummaryIndicatorsPatientList(reportParams).subscribe((data) => {
+      if (data) {
+        console.log('Hiv Summary Indicator report------>', data);
+      }
+    }, (error) => {
+      console.log('Hiv Summary Indicator report error------>', error);
+    });
     if (window.innerWidth <= 768) {
-       this.adjustInputMargin = '0';
+      this.adjustInputMargin = '0';
     }
     this.route.queryParams.subscribe((params) => {
       if (params['reset'] !== undefined) {

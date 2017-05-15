@@ -34,9 +34,10 @@ export class HivSummaryIndicatorsPatientListComponent implements OnInit {
     ngOnInit() {
         this.routeParamsSubscription = this.route.params.subscribe((params) => {
             if (params) {
-                let monthYear = params['period'].split('|');
+                let period = params['period'].split('|');
                 this.indicator = params['indicator'];
-                this.setDateRange(monthYear);
+                console.log('indicator------>', this.indicator);
+                this.getDateRange(period);
                 this.startAge = params['startAge'];
                 this.endAge = params['endAge'];
                 this.overrideColumns.push({
@@ -55,20 +56,17 @@ export class HivSummaryIndicatorsPatientListComponent implements OnInit {
 
         });
     }
-    setDateRange(monthYear) {
-        let startDate = monthYear[0].split('/');
-        let endDate = monthYear[1].split('/');
-        this.startDate = moment([startDate[2], startDate[1] - 1, startDate[0]]);
-        this.endDate = moment([endDate[2], endDate[1] - 1, endDate[0]]);
+    getDateRange(period) {
+        this.startDate = period[0].split('/');
+        this.endDate = period[1].split('/');
     }
 
     loadPatientData() {
         this.resourceService.getHivSummaryIndicatorsPatientList({
-            endDate: this.endDate.endOf('month').format(),
+            endDate: this.endDate,
             indicator: this.indicator,
-            locationUuids: this.locationUuid,
-            startIndex: this.startIndex,
-            startDate: this.startDate.format(),
+            locationUuids: '08fec056-1352-11df-a1f1-0026b9348838',
+            startDate: this.startDate,
             startAge: this.startAge,
             endAge: this.endAge
         }).subscribe((report) => {

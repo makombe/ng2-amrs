@@ -20,7 +20,7 @@
 <div *ngIf="!isLoadingReport && !encounteredError">
   <p-tabView (onChange)="onTabChanged($event)">
     <p-tabPanel header="Tabular View" leftIcon="fa-table" [selected]="currentView === 'tabular'">
-      <hiv-summary-tabular [sectionDefs]="sectionsDef"  [rowData]="data"></hiv-summary-tabular>
+      <hiv-summary-tabular [sectionDefs]="sectionsDef"  [rowData]="data" [dates]="dates"></hiv-summary-tabular>
     </p-tabPanel>
   </p-tabView>
 

@@ -20,16 +20,21 @@ const routes: Routes = [
     },
     {
         path: 'hiv-summary-indicator-report',
-        children: [
-            {
-                path: '',
-                component: HivSummaryIndicatorComponent
-            },
-            {
-                path: 'patient-list/hiv-summary-indicator-report/:indicator/:period',
-                component: HivSummaryIndicatorsPatientListComponent,
-            }
-        ]
+        component: HivSummaryIndicatorComponent
+        // children: [
+        //     {
+        //         path: '',
+        //         component: HivSummaryIndicatorComponent
+        //     },
+        //     {
+        //         path: 'patient-list/:indicator/:period',
+        //         component: HivSummaryIndicatorsPatientListComponent,
+        //     }
+        // ]
+    },
+    {
+        path: 'patient-list/:indicator/:period',
+        component: HivSummaryIndicatorsPatientListComponent,
     }
 ];
 

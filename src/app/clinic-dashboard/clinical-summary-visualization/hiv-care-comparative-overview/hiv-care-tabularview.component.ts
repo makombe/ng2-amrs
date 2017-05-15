@@ -51,6 +51,6 @@ export class HivCareTabularViewComponent implements OnInit, OnDestroy {
     );
     this.router.navigate(['./patient-list', 'clinical-hiv-comparative-overview', indicator,
         dateRange.startDate.format('DD/MM/YYYY') + '|' + dateRange.endDate.format('DD/MM/YYYY')]
-      , {relativeTo: this.route});
+      , { relativeTo: this.route });
   }
 }

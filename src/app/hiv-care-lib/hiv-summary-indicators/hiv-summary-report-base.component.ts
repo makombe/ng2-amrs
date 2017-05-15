@@ -23,6 +23,7 @@ export class HivSummaryIndicatorBaseComponent implements OnInit {
   public errorMessage: string = '';
   public currentView: string = 'tabular'; // can be pdf or tabular or patientList
   public reportName: string = 'hiv-summary-report';
+  public dates: any;
   @Input() ageRangeStart: number;
   @Input() ageRangeEnd: number;
 
@@ -50,6 +51,7 @@ export class HivSummaryIndicatorBaseComponent implements OnInit {
   }
   public set locationUuids(v: Array<string>) {
     this._locationUuids = v;
+    console.log('location-------', v);
   }
   private _gender: Array<string>;
   public get gender(): Array<string> {
@@ -65,6 +67,10 @@ export class HivSummaryIndicatorBaseComponent implements OnInit {
   generateReport() {
     // set busy indications variables
     // clear error
+    this.dates = {
+      startDate: this.startDate,
+      endDate: this.endDate
+    };
     this.encounteredError = false;
     this.errorMessage = '';
     this.isLoadingReport = true;

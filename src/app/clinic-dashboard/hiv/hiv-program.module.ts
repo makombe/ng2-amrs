@@ -6,17 +6,26 @@ import { clinicDashboardHivRouting } from './hiv-program.routes';
 import { HivCareLibModule } from '../../hiv-care-lib/hiv-care-lib.module';
 import { EtlApi } from '../../etl-api/etl-api.module';
 import {
-  HivSummaryIndicatorComponent
+    HivSummaryIndicatorsPatientListComponent
+} from '../../hiv-care-lib/hiv-summary-indicators/indicators-patientlist.component';
+import {
+    HivSummaryIndicatorComponent
 } from './hiv-summary-indicators/hiv-summary-indicator.component';
+import { DataListsModule } from '../../data-lists/data-lists.module';
 
 @NgModule({
     imports: [
         clinicDashboardHivRouting,
         HivCareLibModule,
-        CommonModule
+        CommonModule,
+        DataListsModule
     ],
     exports: [HivSummaryIndicatorComponent],
-    declarations: [Moh731ReportComponent, HivSummaryIndicatorComponent],
+    declarations: [
+        Moh731ReportComponent,
+        HivSummaryIndicatorComponent,
+        HivSummaryIndicatorsPatientListComponent
+    ],
     providers: [],
 })
 export class HivProgramModule { }
