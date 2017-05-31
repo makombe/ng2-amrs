@@ -51,6 +51,8 @@ export class LabOrderSearchPostComponent implements OnInit, OnChanges {
   selectedSampleType: any;
   dateReceived: any;
   orderPostSuccessful: boolean;
+  identifiers: any = [];
+  selectedIdentifiers: any;
 
   constructor(
     private labOrdersSearchHelperService: LabOrdersSearchHelperService,
@@ -84,6 +86,29 @@ export class LabOrderSearchPostComponent implements OnInit, OnChanges {
     this.searchIdentifiers = this.labOrdersSearchHelperService
       .searchIdentifiers(this.order.patient.identifiers);
     this.orderType = this.labOrdersSearchHelperService.determineOrderType(this.order);
+    if (this.searchIdentifiers.amrsMrn) {
+
+      this.identifiers.push({identifiers: this.searchIdentifiers.amrsMrn });
+
+    }
+
+    if (this.searchIdentifiers.cCC) {
+
+      this.identifiers.push({identifiers: this.searchIdentifiers.cCC });
+
+    }
+
+    if (this.searchIdentifiers.kenyaNationalId) {
+
+      this.identifiers.push({identifiers: this.searchIdentifiers.kenyaNationalId });
+
+    }
+
+    if (this.searchIdentifiers.ampathMrsUId) {
+
+      this.identifiers.push({identifiers: this.searchIdentifiers.ampathMrsUId });
+
+    }
     this.setJustification();
 
     this.loadHivSummary(this.person.uuid);
