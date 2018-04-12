@@ -399,6 +399,9 @@ export class FormentryComponent implements OnInit, OnDestroy {
         this.personAttribuAdapter.populateForm(this.form, this.patient.person.attributes);
         this.form.valueProcessingInfo.encounterUuid = this.encounterUuid;
       } else { // creating new from
+        let hd = new HistoricalEncounterDataService();
+        hd.registerEncounters('prevEncHist', historicalEncounter);
+        this.dataSources.registerDataSource('prevEncHist', hd);
         this.dataSources.registerDataSource('rawPrevEnc', historicalEncounter, false);
         this.form = this.formFactory.createForm(schema, this.dataSources.dataSources);
         this.formRelationsFix(this.form);
