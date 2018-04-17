@@ -64,9 +64,10 @@ export class FormListService {
 
         _.each(unsortArray,
             (item) => {
-                if (item.published === true) {
+               // if (item.published === true) {
+              
                     publishedOpenmrsForms.push(item);
-                }
+               // }
             });
         return publishedOpenmrsForms;
     }
